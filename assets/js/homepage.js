@@ -1,5 +1,6 @@
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
+var languageButtonsEl = document.querySelector("#language-buttons");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
 
@@ -16,6 +17,18 @@ var formSubmitHandler = function (event) {
     alert("Please enter a GitHub username");
   }
 }
+
+var buttonClickHandler = function (event) {
+  var language = event.target.getAttribute("data-language");
+
+  if (language) {
+    // get new content
+    getFeaturedRepos(language);
+
+    // clear old content
+    repoContainerEl.textContent = "";
+  }
+};
 
 var getUserRepos = function (user) {
   // format the github api url
@@ -98,3 +111,4 @@ var displayRepos = function (repos, searchTerm) {
 }
 
 userFormEl.addEventListener("submit", formSubmitHandler);
+languageButtonsEl.addEventListener("click", buttonClickHandler);
